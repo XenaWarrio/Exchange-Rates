@@ -28,7 +28,7 @@ public class MainFragment extends Fragment {
     InterfaceForFragments listener;
     private RecyclerView rv;
     private AdapterRecycler adapter;
-    static List<Value> valuesList = new ArrayList<>();
+    public static List<Value> valuesList = new ArrayList<>();
 
     public static MainFragment newInstance( InterfaceForFragments interfaceForFragments) {
         MainFragment fragment = new MainFragment();

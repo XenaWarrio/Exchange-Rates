@@ -5,14 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
 import dx.queen.projectwithguys.Fragments.InterfaceForFragments;
 import dx.queen.projectwithguys.Model.Value;
 
 public class ValueViewHolder extends RecyclerView.ViewHolder {
-    InterfaceForFragments listener;
-    List<Value> valueList;
 
     private TextView valueName;
     private TextView currentBuy;
@@ -25,10 +21,10 @@ public class ValueViewHolder extends RecyclerView.ViewHolder {
         currentSale = itemView.findViewById(R.id.value_current_sale);
     }
 
-    public void bind(int n,InterfaceForFragments listener){
-        valueName.setText(valueList.get(n).getValueName());
-        currentBuy.setText(String.valueOf(valueList.get(n).getCurrentBuy()));
-        currentSale.setText(String.valueOf(valueList.get(n).getCurrentSale()));
+    public void bind(Value value , int n,InterfaceForFragments listener){
+        valueName.setText(value.getValueName());
+        currentBuy.setText(String.valueOf(value.getCurrentBuy()));
+        currentSale.setText(String.valueOf(value.getCurrentSale()));
         listener.openDetailFragment(n);
 
     }
