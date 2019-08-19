@@ -1,39 +1,54 @@
 package dx.queen.projectwithguys.Model;
 
-public class Value {
-    String valueName;
-    String currentBuy;
-    String currentSale;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public Value(String valueName, String currentBuy, String currentSale){
-        this.valueName = valueName;
-        this.currentBuy = currentBuy;
-        this.currentSale = currentSale;
+public class Value {
+
+    public Value(String ccy, String buy, String sale){
+        this.ccy = ccy;
+        this.buy = buy;
+        this.sale = sale;
     }
+
+    public Value(){}
+
+    @SerializedName("ccy")
+    @Expose
+    private String ccy;
+
+    @SerializedName("buy")
+    @Expose
+    private String buy;
+    @SerializedName("sale")
+    @Expose
+    private String sale;
 
     public String getValueName() {
-        return valueName;
+        return ccy;
     }
 
-    public void setValueName(String valueName) {
-        this.valueName = valueName;
+    public void setValueName(String ccy) {
+        this.ccy = ccy;
     }
 
-    public String getCurrentBuy() {
-        return currentBuy;
+    public String getBuy() {
+        return buy;
     }
 
-    public void setCurrentBuy(String currentBuy) {
-        this.currentBuy = currentBuy;
+    public void setBuy(String buy) {
+        this.buy = buy;
     }
 
-    public String getCurrentSale() {
-        return currentSale;
+    public String getSale() {
+        return sale;
     }
 
-    public void setCurrentSale(String currentSale) {
-        this.currentSale = currentSale;
+    public void setSale(String sale) {
+        this.sale = sale;
     }
+
+
 
 
 }

@@ -54,8 +54,8 @@ public class DetailFragment extends Fragment {
 
     private void fillviews(Value value) {
         tvName.setText(value.getValueName());
-        tvBuy.setText(value.getCurrentBuy());
-        tvSale.setText(value.getCurrentSale());
+        tvBuy.setText(value.getBuy());
+        tvSale.setText(value.getSale());
     }
 
 

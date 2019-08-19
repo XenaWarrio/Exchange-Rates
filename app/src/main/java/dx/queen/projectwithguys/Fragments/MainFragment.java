@@ -3,19 +3,24 @@ package dx.queen.projectwithguys.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dx.queen.projectwithguys.AdapterRecycler;
-import dx.queen.projectwithguys.R;
-import dx.queen.projectwithguys.Fragments.API.ResponseJson;
 import dx.queen.projectwithguys.Fragments.API.RetrofitInterface;
 import dx.queen.projectwithguys.Model.Value;
+import dx.queen.projectwithguys.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,13 +48,12 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         rv = v.findViewById(R.id.recycler_view);
-        adapter = new AdapterRecycler();
-        rv.setAdapter(adapter);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.privatbank.ua/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        Log.d("TAG", "RETROFIT IS WORKING");
 
         RetrofitInterface ri = retrofit.create(RetrofitInterface.class);
         Call<List<Value>> getValue = ri.getValue();
@@ -57,14 +61,9 @@ public class MainFragment extends Fragment {
         getValue.enqueue(new Callback<List<Value>>() {
             @Override
             public void onResponse(Call<List<Value>> call, Response<List<Value>> response) {
-                ResponseJson rj = (ResponseJson) response.body();
+                String rj = response.body().toString();
+                jsonStuff(rj);
 
-                String name = rj.getCcy();
-                String buy = rj.getBuy();
-                String sale = rj.getSale();
-
-                Value value = new Value(name, buy, sale);
-                valuesList.add(value);
 
 
             }
@@ -76,6 +75,34 @@ public class MainFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void jsonStuff(String rj){
+        try{
+            JSONObject obj =  new JSONObject(rj);
+            JSONArray ja =  obj.getJSONArray("data");
+
+             for(int i= 0 ; i < ja.length(); i++){
+                 Value ry = new Value();
+                 JSONObject objForArray = ja.getJSONObject(i);
+
+                 ry.setValueName(objForArray.getString("ccy"));
+                 ry.setBuy(objForArray.getString("buy"));
+                 ry.setSale(objForArray.getString("sale"));
+
+                 valuesList.add(ry);
+                 }
+
+            adapter = new AdapterRecycler();
+            rv.setAdapter(adapter);
+            rv.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
     @Override
