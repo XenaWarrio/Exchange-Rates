@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,6 +71,7 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Value>> call, Throwable t) {
+                Toast.makeText(getContext(), t.toString() + "ОШибка с ретрофитом", Toast.LENGTH_SHORT);
 
             }
         });
@@ -91,6 +93,8 @@ public class MainFragment extends Fragment {
                  ry.setSale(objForArray.getString("sale"));
 
                  valuesList.add(ry);
+                 Log.d("OOOOHMYYY" , ry.getBuy() + "вроде как работает");
+
                  }
 
             adapter = new AdapterRecycler();

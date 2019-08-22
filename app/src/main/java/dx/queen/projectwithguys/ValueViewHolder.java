@@ -23,8 +23,8 @@ public class ValueViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Value value , int n,InterfaceForFragments listener){
         valueName.setText(value.getValueName());
-        currentBuy.setText(String.valueOf(value.getBuy()));
-        currentSale.setText(String.valueOf(value.getSale()));
+        currentBuy.setText(value.getBuy());
+        currentSale.setText(value.getSale());
         listener.openDetailFragment(n);
 
     }
